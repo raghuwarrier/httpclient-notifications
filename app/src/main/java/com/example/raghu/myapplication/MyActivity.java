@@ -28,11 +28,14 @@ import java.net.URL;
 public class MyActivity extends ActionBarActivity {
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
     private static final String DEBUG_TAG = "HttpExample";
-
+    SampleAlarmReceiver alarmReceiver = new SampleAlarmReceiver();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+        Log.d(DEBUG_TAG,"setting alarm");
+        alarmReceiver.setAlarm(this);
+
     }
 
     @Override
