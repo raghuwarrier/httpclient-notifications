@@ -3,6 +3,7 @@ package com.example.raghu.myapplication;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -34,6 +35,9 @@ public class MyActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
         Log.d(DEBUG_TAG,"setting alarm");
+
+
+
         alarmReceiver.setAlarm(this);
 
     }
@@ -63,6 +67,16 @@ public class MyActivity extends ActionBarActivity {
     /** Called when the user clicks the Send button */
     public void sendMessage(View view) {
         System.out.println("God is great");
+        Context context = this;
+        SharedPreferences sharedPreferences = context.getSharedPreferences("com.example.raghu.myapplication.myactivity.preferences",Context.MODE_PRIVATE);
+        boolean visited = sharedPreferences.getBoolean("visited",false);
+        Log.d(DEBUG_TAG, String.valueOf(visited));
+        if(!visited){
+            SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+            preferencesEditor.putBoolean("visited", true);
+            preferencesEditor.commit();
+            Log.d(DEBUG_TAG,"set preferences value as true");
+        }
         Intent intent = new Intent(this, DisplayMessageActivity.class);
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = editText.getText().toString();
